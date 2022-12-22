@@ -28,8 +28,8 @@ opportunamente motivate.
 Il giorno dell’orale è necessario preparare una presentazione powerpoint ed una demo del progetto.
 
       TODO LIST:
-1- Scelta algoritmo: Knuth-Morris-Pratt;\n
-2- Realizzazione con il seriale: https://www.sanfoundry.com/c-program-implement-knuth-morris-pratt-algorithm-string-matching/ \n
-3- Prendere file per input e testare;
-3- Realizzazione con MPI;
-4- Realizzazione con OpenMPI
+  1- Scelta algoritmo: Knuth-Morris-Pratt;
+  2- Realizzazione con il seriale: https://www.sanfoundry.com/c-program-implement-knuth-morris-pratt-algorithm-string-matching/
+  3- Prendere file per input e testare;
+  4- Realizzazione con MPI;
+  5- Realizzazione con OpenMPI
