@@ -19,8 +19,8 @@ in termini di Speed-up ed efficienza al variare del numero di thread e delle dim
 Il progetto è dimensionato per essere realizzato da un gruppo composto da due studenti.
 
 La consegna del progetto (almeno una settimana prima dell’orale) consiste in:
-- (a) tutti i sorgenti (opportunamente commentati) necessari per il funzionamento;
-- (b) Una relazione contenente:
+(a) tutti i sorgenti (opportunamente commentati) necessari per il funzionamento;
+(b) Una relazione contenente:
 - La descrizione dettagliata dell’architettura dell’applicazione e delle scelte progettuali effettuate,
 opportunamente motivate.
 - La descrizione delle eventuali limitazioni riscontrate;
