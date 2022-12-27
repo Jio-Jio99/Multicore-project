@@ -1,18 +1,65 @@
-#include<stdio.h>
-#include<string.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 void computeLPSArray(char *pat, int lungPattern, int *longestPrefixSuffix);
 void KMPSearch(char *pat, char *txt);
+char* ReadFile(char* filename);
 
 // Driver program to test above function
-int main() {
-    char *txt = "ABABDABACDABABCABAB";
-    char *pat = "ABABCABAB";
+int main(int argc, char* args[]) {
+    char* txt = ReadFile("gioele.txt");
+    if (txt == NULL){
+        printf("Errore nella lettura del file");
+        return 0;
+    }
+    
+    char* pat = "Dix";
+
     KMPSearch(pat, txt);
     return 0;
 }
 
+char* ReadFile(char *filename){
+   char *buffer = NULL;
+   int string_size, read_size;
+   FILE *handler = fopen(filename, "r");
+
+   if (handler){
+       // Seek the last byte of the file
+       fseek(handler, 0, SEEK_END);
+       // Offset from the first to the last byte, or in other words, filesize
+       string_size = ftell(handler);
+       // go back to the start of the file
+       rewind(handler);
+
+       // Allocate a string that can hold it all
+       buffer = (char*) malloc(sizeof(char) * (string_size + 1) );
+
+       // Read it all in one operation
+       read_size = fread(buffer, sizeof(char), string_size, handler);
+
+       // fread doesn't set it so put a \0 in the last position
+       // and buffer is now officially a string
+       buffer[string_size] = '\0';
+
+       if (string_size != read_size){
+           // Something went wrong, throw away the memory and set
+           // the buffer to NULL
+           free(buffer);
+           buffer = NULL;
+       }
+
+       // Always remember to close the file.
+       fclose(handler);
+    }
+
+    return buffer;
+}
+
+
+// ALGORITMO di Knuth-Morris-Pratt
 void KMPSearch(char *pat, char *txt) {
     int lungPattern = strlen(pat);
     int lungText = strlen(txt);
@@ -35,15 +82,13 @@ void KMPSearch(char *pat, char *txt) {
             printf("Found pattern at index %d \n", i - j);
             j = longestPrefixSuffix[j - 1];
         }
-
-        // mismatch after j matches
-        else if (i < lungText && pat[j] != txt[i]) {
+        else if (i < lungText && pat[j] != txt[i]) { // mismatch after j matches
             // Do not match lps[0..lps[j-1]] characters,
             // they will match anyway
             if (j != 0)
                 j = longestPrefixSuffix[j - 1];
             else
-                i = i + 1;
+                i++;
         }
     }
 
