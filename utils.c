@@ -1,26 +1,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <unistd.h>
 
-void computeLPSArray(char *pat, int lungPattern, int *longestPrefixSuffix);
-void KMPSearch(char *pat, char *txt);
-char* ReadFile(char* filename);
-
-// Driver program to test above function
-int main(int argc, char* args[]) {
-    char* txt = ReadFile("gioele.txt");
-    if (txt == NULL){
-        printf("Errore nella lettura del file");
-        return 0;
-    }
-    
-    char* pat = "Dix";
-
-    KMPSearch(pat, txt);
-    return 0;
-}
-
+// LETTURA DI FILE, RITORNA UN TESTO COME UN UNICA STRINGA
 char* ReadFile(char *filename){
    char *buffer = NULL;
    int string_size, read_size;
@@ -58,6 +40,34 @@ char* ReadFile(char *filename){
     return buffer;
 }
 
+// FUNZIONE DI SUPPORTO PER L'ALGORITMO DI CONFRONTO
+void computeLPSArray(char *pat, int lungPattern, int *longestPrefixSuffix) {
+    int lpsLen = 0; // lenght of the previous longest prefix suffix
+    int i;
+
+    longestPrefixSuffix[0] = 0; // lps[0] is always 0
+    i = 1;
+
+    // the loop calculates longestPrefixSuffix[i] for i = 1 to lungPattern-1
+    while (i < lungPattern) {
+        if (pat[i] == pat[lpsLen]) { 
+            lpsLen++;
+            longestPrefixSuffix[i] = lpsLen;
+            i++;
+        }
+        else { // (pat[i] != pat[lpsLen])
+            if (lpsLen != 0) {
+                // This is tricky. Consider the example AAACAAAA and i = 7.
+                lpsLen = longestPrefixSuffix[lpsLen - 1];
+                // Also, note that we do not increment i here
+            } else { // if (lpsLen == 0)
+                longestPrefixSuffix[i] = 0;
+                i++;
+            }
+        }
+    }
+}
+
 
 // ALGORITMO di Knuth-Morris-Pratt
 void KMPSearch(char *pat, char *txt) {
@@ -93,31 +103,4 @@ void KMPSearch(char *pat, char *txt) {
     }
 
     free(longestPrefixSuffix); // to avoid memory leak
-}
-
-void computeLPSArray(char *pat, int lungPattern, int *longestPrefixSuffix) {
-    int lpsLen = 0; // lenght of the previous longest prefix suffix
-    int i;
-
-    longestPrefixSuffix[0] = 0; // lps[0] is always 0
-    i = 1;
-
-    // the loop calculates longestPrefixSuffix[i] for i = 1 to lungPattern-1
-    while (i < lungPattern) {
-        if (pat[i] == pat[lpsLen]) { 
-            lpsLen++;
-            longestPrefixSuffix[i] = lpsLen;
-            i++;
-        }
-        else { // (pat[i] != pat[lpsLen])
-            if (lpsLen != 0) {
-                // This is tricky. Consider the example AAACAAAA and i = 7.
-                lpsLen = longestPrefixSuffix[lpsLen - 1];
-                // Also, note that we do not increment i here
-            } else { // if (lpsLen == 0)
-                longestPrefixSuffix[i] = 0;
-                i++;
-            }
-        }
-    }
 }
