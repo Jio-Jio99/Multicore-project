@@ -4,15 +4,22 @@
 #include <omp.h>
 #include "utils.c"
 
+void OpenMPI(int thread_count, char* text, char** patterns);
 
 int main(int argc, char* args[]){
-    if (argc != 3) {
-        printf("Error: errore nei parametri passati\n");
+    if (argc != 4) {
+        printf("Error: mancano dei parametri\n");
         return 0;
     } 
 
     char* filenameTxt = args[1];
     char* filenamePath = args[2];
+    int thread_count = atoi(args[3]);
+
+    if (thread_count == 0){
+        printf("Error: input tread count with a integer");
+        return 0;
+    }
 
     // Leggo i file e metto in memoria, controllando che non ci siano errori
     char* txt = ReadFile(filenameTxt);
@@ -28,13 +35,21 @@ int main(int argc, char* args[]){
     }
 
     // Del file path splitto sugli '\n' per poter successivamente ciclare sulle stringhe da verificare
-    char** listaPat = StrSplit(pat, '\n');
+    int numberPat = 0;
+    char** listaPat = StrSplit(pat, '\n', &numberPat);
+    OpenMPI(numberPat, txt, listaPat);
+
     return 0;
 }
 
 
 
 // RITORNARE UN BOOLEANO SE TROVA QUELLA STRINGA
-void OpenMPI(){
-    printf("CIAO");
+// Idea: ciclare sui pattern e ad ogni pattern mandare un thread (vedere se con troppi pattern non va bene)
+void OpenMPI(int thread_count, char* text, char** patterns){
+    # pragma  omp  parallel 
+    {
+        printf("\nParola in ricerca: %s\n", *(patterns+omp_get_thread_num()));
+        KMPSearch(patterns[omp_get_thread_num()], text);
+    }
 }

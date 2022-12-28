@@ -32,4 +32,4 @@ Il giorno dell’orale è necessario preparare una presentazione powerpoint ed u
   - Realizzazione con il seriale: https://www.sanfoundry.com/c-program-implement-knuth-morris-pratt-algorithm-string-matching/
   - Prendere file per input e testare;
   - Realizzazione con MPI;
-  - Realizzazione con OpenMPI
+  - Realizzazione con OpenMPI (slide 13-16)

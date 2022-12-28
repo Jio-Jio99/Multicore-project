@@ -108,7 +108,7 @@ void KMPSearch(char *pat, char *txt) {
 }
 
 // SPLITTA UN TESTO PER GLI SPAZI E RITORNA UN ARRAY DI STRINGHE
-char** StrSplit(char* a_str, const char a_delim) {
+char** StrSplit(char* a_str, const char a_delim, int* numberPat) {
     char** result    = 0;
     size_t count     = 0;
     char* tmp        = a_str;
@@ -133,7 +133,9 @@ char** StrSplit(char* a_str, const char a_delim) {
     /* Add space for terminating null string so caller
        knows where the list of returned strings ends. */
     count++;
-
+    if (numberPat)
+        *numberPat = count;
+        
     result = malloc(sizeof(char*) * count);
 
     if (result){

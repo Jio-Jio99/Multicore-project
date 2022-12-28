@@ -29,7 +29,7 @@ int main(int argc, char* args[]) {
     }
 
     // Del file path splitto sugli '\n' per poter successivamente ciclare sulle stringhe da verificare
-    char** listaPat = StrSplit(pat, '\n');
+    char** listaPat = StrSplit(pat, '\n', NULL);
 
     // Funzionamento del processo seriale, per ogni token avvio la funzione
     serialeFunction(txt, listaPat);
