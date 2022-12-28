@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include "utils.c"
 
+void serialeFunction(char *testo, char** pattern);
+
 // Main per il processo seriale
 int main(int argc, char* args[]) {
     if (argc != 3) {
@@ -30,9 +32,15 @@ int main(int argc, char* args[]) {
     char** listaPat = StrSplit(pat, '\n');
 
     // Funzionamento del processo seriale, per ogni token avvio la funzione
-    for(int i=0; *(listaPat + i); i++){
-        printf("\nParola in ricerca: %s\n", *(listaPat+i));
-        KMPSearch(listaPat[i], txt);
-    }
+    serialeFunction(txt, listaPat);
     return 0;
+}
+
+void serialeFunction(char *testo, char** pattern){
+    for(int i=0; *(pattern + i); i++){
+        printf("\nParola in ricerca: %s\n", *(pattern+i));
+        KMPSearch(pattern[i], testo);
+    }
+
+    return;
 }
