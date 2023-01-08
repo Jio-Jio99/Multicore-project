@@ -47,9 +47,9 @@ int main(int argc, char* args[]){
 // RITORNARE UN BOOLEANO SE TROVA QUELLA STRINGA
 // Idea: ciclare sui pattern e ad ogni pattern mandare un thread (vedere se con troppi pattern non va bene)
 void OpenMPI(int thread_count, char* text, char** patterns){
-    # pragma  omp  parallel 
+    # pragma  omp  parallel num_threads(thread_count)
     {
-        printf("\nParola in ricerca: %s\n", *(patterns+omp_get_thread_num()));
+        printf("\nParola in ricerca: %s dal processo %d\n", *(patterns+omp_get_thread_num()), omp_get_thread_num());
         KMPSearch(patterns[omp_get_thread_num()], text);
     }
 }
