@@ -37,9 +37,12 @@ int main(int argc, char* args[]) {
 }
 
 void serialeFunction(char *testo, char** pattern){
+    int volte;
     for(int i=0; *(pattern + i); i++){
-        printf("\nParola in ricerca: %s\n", *(pattern+i));
-        KMPSearch(pattern[i], testo);
+        volte = 0;
+        printf("Trovata la parola \"%s\"", *(pattern+i));
+        KMPSearchInt(pattern[i], testo, &volte);
+        printf(" %d° volte\n", volte);
     }
 
     return;
