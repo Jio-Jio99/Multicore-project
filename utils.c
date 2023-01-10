@@ -153,3 +153,39 @@ char** StrSplit(char* a_str, const char a_delim, int* numberPat) {
 
     return result;
 }
+
+// ALGORITMO di Knuth-Morris-Pratt che invece di stampare l'indice della posizione ritorna quante volte ha trovato quel pattern
+void KMPSearchInt(char *pat, char *txt, int* n_volte) {
+    int lungPattern = strlen(pat);
+    int lungText = strlen(txt);
+
+    // create lps[] that will hold the longest prefix suffix values for pattern
+    int *longestPrefixSuffix = (int *) malloc(sizeof(int) * lungPattern);
+
+    // Preprocess the pattern (calculate lps[] array)
+    computeLPSArray(pat, lungPattern, longestPrefixSuffix);
+
+    int j = 0; // index for pat[]
+    int i = 0; // index for txt[]
+    while (i < lungText) {
+        if (pat[j] == txt[i]) {
+            j++;
+            i++;
+        }
+
+        if (j == lungPattern) {
+            *(n_volte)+=1;
+            j = longestPrefixSuffix[j - 1];
+        }
+        else if (i < lungText && pat[j] != txt[i]) { // mismatch after j matches
+            // Do not match lps[0..lps[j-1]] characters,
+            // they will match anyway
+            if (j != 0)
+                j = longestPrefixSuffix[j - 1];
+            else
+                i++;
+        }
+    }
+
+    free(longestPrefixSuffix); // to avoid memory leak
+}

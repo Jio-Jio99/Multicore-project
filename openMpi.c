@@ -4,8 +4,6 @@
 #include <omp.h>
 #include "utils.c"
 
-void OpenMPI(int thread_count, char* text, char** patterns);
-
 int main(int argc, char* args[]){
     if (argc != 4) {
         printf("Error: mancano dei parametri\n");
@@ -37,19 +35,14 @@ int main(int argc, char* args[]){
     // Del file path splitto sugli '\n' per poter successivamente ciclare sulle stringhe da verificare
     int numberPat = 0;
     char** listaPat = StrSplit(pat, '\n', &numberPat);
-    OpenMPI(numberPat, txt, listaPat);
+    
+    // Idea: ciclare sui pattern e ad ogni pattern mandare un thread (vedere se con troppi pattern non va bene)
+    # pragma  omp  parallel num_threads(thread_count)
+    {   
+        int volte = 0;
+        KMPSearchInt(listaPat[omp_get_thread_num()], txt, &volte);
+        printf("Ricercato \"%s\" dal processo %d su %d: %d° ricorenze trovate\n", *(listaPat+omp_get_thread_num()), omp_get_thread_num(), omp_get_num_threads(),volte);
+    }  
 
     return 0;
-}
-
-
-
-// RITORNARE UN BOOLEANO SE TROVA QUELLA STRINGA
-// Idea: ciclare sui pattern e ad ogni pattern mandare un thread (vedere se con troppi pattern non va bene)
-void OpenMPI(int thread_count, char* text, char** patterns){
-    # pragma  omp  parallel num_threads(thread_count)
-    {
-        printf("\nParola in ricerca: %s dal processo %d\n", *(patterns+omp_get_thread_num()), omp_get_thread_num());
-        KMPSearch(patterns[omp_get_thread_num()], text);
-    }
 }
