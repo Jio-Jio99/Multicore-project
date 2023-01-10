@@ -35,12 +35,14 @@ int main(int argc, char* args[]){
     // Del file path splitto sugli '\n' per poter successivamente ciclare sulle stringhe da verificare
     int numberPat = 0;
     char** listaPat = StrSplit(pat, '\n', &numberPat);
+    int slice = numberPat/thread_count;
     
     // Idea: ciclare sui pattern e ad ogni pattern mandare un thread (vedere se con troppi pattern non va bene)
     # pragma  omp  parallel num_threads(thread_count)
     {   
         int volte = 0; //variabile privata
         KMPSearchInt(listaPat[omp_get_thread_num()], txt, &volte);
+        // printf("Ricercato %s \"%s\" %s dal processo %d di %d: %s %d° %s ricorenze trovate\n", RED,*(listaPat+omp_get_thread_num()),RESET, omp_get_thread_num(), omp_get_num_threads(),GREEN,volte, RESET);
         printf("Ricercato \"%s\" dal processo %d di %d: %d° ricorenze trovate\n", *(listaPat+omp_get_thread_num()), omp_get_thread_num(), omp_get_num_threads(),volte);
     }  
 
