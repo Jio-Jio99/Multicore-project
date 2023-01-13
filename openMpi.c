@@ -36,14 +36,11 @@ int main(int argc, char* args[]){
     int numberPat = 0;
     char** listaPat = StrSplit(pat, '\n', &numberPat);
 
-    //a seconda di quanti pattern ci sono, li suddivido ai vari thread
-    // int slice = (numberPat%thread_count==0) ? numberPat/thread_count : numberPat/thread_count +1;
-
-    // Idea: ciclare sui pattern e ad ogni pattern mandare un thread (vedere se con troppi pattern non va bene)
+    // Idea: ciclare sui pattern e ad ogni pattern mandare un thread
     #pragma  omp  parallel num_threads(thread_count)
     {
         int volte = 0;
-        #pragma omp for private(volte)
+        #pragma omp for
             for (int i = 0; i < numberPat; i++){
                 if (!listaPat[i]){
                     continue;
