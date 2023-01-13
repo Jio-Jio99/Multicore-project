@@ -28,8 +28,8 @@ opportunamente motivate.
 Il giorno dell’orale è necessario preparare una presentazione powerpoint ed una demo del progetto.
 
       TODO LIST:
-  - Scelta algoritmo: Knuth-Morris-Pratt: http://www.dacrema.com/Informatica/Algoritmo_Knuth_Morris.htm
-  - Realizzazione con il seriale: https://www.sanfoundry.com/c-program-implement-knuth-morris-pratt-algorithm-string-matching/
-  - Prendere file per input e testare;
+  - Scelta algoritmo: Knuth-Morris-Pratt: http://www.dacrema.com/Informatica/Algoritmo_Knuth_Morris.htm (FATTO)
+  - Realizzazione con il seriale: https://www.sanfoundry.com/c-program-implement-knuth-morris-pratt-algorithm-string-matching/ (FATTO)
   - Realizzazione con MPI;
-  - Realizzazione con OpenMPI (slide 13-16)
+  - Realizzazione con OpenMPI (slide 13-16) (FATTO)
+  - Fixare la funzione SpltString che con l'assertion non funziona su testi grandi

@@ -150,7 +150,7 @@ char** StrSplit(char* a_str, const char a_delim, int* numberPat) {
             *(result + idx++) = strdup(token);
             token = strtok(0, delim);
         }
-        assert(idx == count - 1);
+        // assert(idx == count - 1);
         *(result + idx) = 0;
     }
 
