@@ -38,22 +38,25 @@ int main(int argc, char* args[]){
     char** listaPat = StrSplit(pat, '\n', &numberPat);
 
     // Idea: ciclare sui pattern e ad ogni pattern mandare un thread
-    clock_t start, end;
-    start = clock();
+    // clock_t start, end;
+    // start = clock();
     #pragma  omp  parallel num_threads(thread_count)
     {
-        int volte = 0;
-        #pragma omp for private(volte)
+        int volte = 0; 
+        #pragma omp for private(volte) 
             for (int i = 0; i < numberPat; i++){
                 if (!listaPat[i]){
                     continue;
                 }
                 volte = 0; 
                 KMPSearchInt(listaPat[i], txt, &volte);
+                // KMPSearch(listaPat[i], txt);
                 printf("Ricercato \"%s\" dal processo %d di %d: %d° ricorenze trovate\n", listaPat[i], omp_get_thread_num(),omp_get_num_threads(),volte);
             }
     }
-    end = clock();
-    printf("\nTime: %f\n", ((double)(end - start))/CLOCKS_PER_SEC);
+    // end = clock();
+    // printf("\nTime: %f\n", ((double)(end - start))/CLOCKS_PER_SEC);
     return 0;
 }
+
+//Fare più txt copie profonda (anche della lista de)
