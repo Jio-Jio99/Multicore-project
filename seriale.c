@@ -33,11 +33,11 @@ int main(int argc, char* args[]) {
     char** listaPat = StrSplit(pat, '\n', NULL);
 
     // Funzionamento del processo seriale, per ogni token avvio la funzione
-    // clock_t start, end;
-    // start = clock();
+    clock_t start, end;
+    start = clock();
     serialeFunction(txt, listaPat);
-    // end = clock();
-    // printf("\nTime: %f\n", ((double)(end - start))/CLOCKS_PER_SEC);
+    end = clock();
+    printf("\nTime: %f\n", ((double)(end - start))/CLOCKS_PER_SEC);
     return 0;
 }
 
@@ -48,7 +48,7 @@ void serialeFunction(char *testo, char** pattern){
         printf("Trovata la parola \"%s\"", *(pattern+i));
         KMPSearchInt(pattern[i], testo, &volte);
         // KMPSearch(pattern[i], testo);
-        printf(" %d° volte\n", volte);
+        printf(" %d volte\n", volte);
     }
 
     return;
