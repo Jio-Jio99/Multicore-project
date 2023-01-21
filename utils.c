@@ -3,10 +3,6 @@
 #include <stdlib.h>
 #include <assert.h>
 
-#define RED "\033[0;31m"
-#define RESET "\033[0m"
-#define GREEN "\033[0;32m"
-
 // LETTURA DI FILE, RITORNA UN TESTO COME UN UNICA STRINGA
 char* ReadFile(char *filename){
    char *buffer = NULL;
