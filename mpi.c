@@ -45,14 +45,16 @@ int main(int argc, char* args[]){
     char** listaPat = StrSplit(pat, '\n', &numberPat);
 
     //Inizio programma con MPI
+
     //Creazione dei processi
     MPI_Init(NULL, NULL);
     MPI_Comm_size(MPI_COMM_WORLD, &comm_sz);
     
-    //Idea: suddividere la lista di pattern in parti uguali da dividere ai vari processi 
     //Misurazione per il tempo
     double start, end;
     start = MPI_Wtime();
+    //Idea: suddividere la lista di pattern in parti uguali da dividere ai vari processi 
+
     
     // FUNZIONE CON MPI
     
