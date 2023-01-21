@@ -6,6 +6,7 @@
 #include "utils.c"
 
 int main(int argc, char* args[]){
+    //Inizializzazione e pars dei parametri
     //Controllo che i parametri passati siano del numero esatto, il IV è il numero di processi paralleli da avviare
     if (argc != 4) {
         printf("Error: mancano dei parametri\n");
