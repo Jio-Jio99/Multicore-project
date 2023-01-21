@@ -49,7 +49,7 @@ int main(int argc, char* args[]){
     MPI_Init(NULL, NULL);
     MPI_Comm_size(MPI_COMM_WORLD, &comm_sz);
     
-    // Idea: ciclare sui pattern mandando in parallelo il for, quindi suddividere i pattern da cercare tra i vari processi
+    //Idea: suddividere la lista di pattern in parti uguali da dividere ai vari processi 
     //Misurazione per il tempo
     double start, end;
     start = MPI_Wtime();
