@@ -38,16 +38,22 @@ int main(int argc, char* args[]){
     char** listaPat = StrSplit(pat, '\n', &numberPat);
 
     //Inizio programma con MPI
+
     //Creazione dei processi
     MPI_Init(NULL, NULL);
     double start = MPI_Wtime();
+
+    //Variabili private
     int my_rank, comm_sz, volte;
+
     MPI_Comm_size(MPI_COMM_WORLD, &comm_sz);
     MPI_Comm_rank(MPI_COMM_WORLD, &my_rank);
+
     //Misurazione per il tempo
     double end;
-    //Idea: suddividere la lista di pattern in parti uguali da dividere ai vari processi 
-    // FUNZIONE CON MPI
+
+    //Idea: suddividere i vari pattern da dare ai processi a seconda del my_rank del processo finché i pattern non sono finiti 
+    //uncio For per tutti i pattern  
     for(int i = 0; i < numberPat-1; i += comm_sz){
         volte=0;
         if(i+my_rank>=numberPat-1 || !listaPat[i+my_rank]){
@@ -57,10 +63,13 @@ int main(int argc, char* args[]){
         printf("Ricercato \"%s\" dal processo %d di %d: %d ricorrenze trovate\n", listaPat[i+my_rank], my_rank+1, comm_sz, volte);
     }
     end = MPI_Wtime();
-    //stampa finale del tempo messo
+
+    //tempo messo dal processo
     double my_time = end-start, maximumTime=0;
     
+    //Prendo il tempo del processo più lento
     MPI_Reduce(&my_time, &maximumTime, 1, MPI_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
+    
     if (my_rank==0){
         printf("\nTime: %f\n", maximumTime);
     }
