@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <assert.h>
 
 // LETTURA DI FILE, RITORNA UN TESTO COME UN UNICA STRINGA
 char* ReadFile(char *filename){
@@ -10,31 +9,29 @@ char* ReadFile(char *filename){
    FILE *handler = fopen(filename, "r");
 
     if (handler){
-        // Seek the last byte of the file
+        // Spostiamo il puntatore alla fine del file
         fseek(handler, 0, SEEK_END);
-        // Offset from the first to the last byte, or in other words, filesize
+        // Misurazione di quanti byte è composto il file
         string_size = ftell(handler);
-        // go back to the start of the file
+        // ripuntiamo all'inizio del file
         rewind(handler);
 
         // Allocate a string that can hold it all
         buffer = (char*) malloc(sizeof(char) * (string_size + 1) );
 
-        // Read it all in one operation
+        // Legge tutto il file in un'unica operazione
         read_size = fread(buffer, sizeof(char), string_size, handler);
 
-        // fread doesn't set it so put a \0 in the last position
-        // and buffer is now officially a string
+        // aggiunta del \0 finale che fread non inserisce
         buffer[string_size] = '\0';
 
         if (string_size != read_size){
-            // Something went wrong, throw away the memory and set
-            // the buffer to NULL
+            // in caso di errori di memoria, liberiamo la stessa e mandiamo il puntatore a NULL
             free(buffer);
             buffer = NULL;
         }
 
-        // Always remember to close the file.
+        // Chiusura file
         fclose(handler);
     }
 
@@ -70,7 +67,7 @@ void computeLPSArray(char *pat, int lungPattern, int *longestPrefixSuffix) {
 }
 
 
-// ALGORITMO di Knuth-Morris-Pratt
+// ALGORITMO di Knuth-Morris-Pratt che stampa il puntatore di dove trova la parola
 void KMPSearch(char *pat, char *txt) {
     int lungPattern = strlen(pat);
     int lungText = strlen(txt);
@@ -107,50 +104,47 @@ void KMPSearch(char *pat, char *txt) {
 }
 
 // SPLITTA UN TESTO PER GLI SPAZI E RITORNA UN ARRAY DI STRINGHE
-char** StrSplit(char* a_str, const char a_delim, int* numberPat) {
-    char** result    = 0;
-    size_t count     = 0;
-    char* tmp        = a_str;
-    char* last_comma = 0;
-    char delim[2];
-    delim[0] = a_delim;
-    delim[1] = 0;
-
-    /* Count how many elements will be extracted. */
-    while (*tmp){
-        if (a_delim == *tmp)
-        {
-            count++;
-            last_comma = tmp;
-        }
-        tmp++;
+char** StrSplit(char* string, int* numberPat) {
+    int countPatt = 0;
+    // array di stringhe da ritornare
+    char ** splittata = (char**) malloc(sizeof(char*));
+    if (!splittata){
+        printf("Errore: mancanza di memoria per splittare la stringa");
+        exit(0);
     }
 
-    /* Add space for trailing token. */
-    count += last_comma < (a_str + strlen(a_str) - 1);
-
-    /* Add space for terminating null string so caller
-       knows where the list of returned strings ends. */
-    count++;
-    if (numberPat)
-        *numberPat = count;
-        
-    result = malloc(sizeof(char*) * count);
-
-    if (result){
-        size_t idx  = 0;
-        char* token = strtok(a_str, delim);
-
-        while (token){
-            assert(idx < count);
-            *(result + idx++) = strdup(token);
-            token = strtok(0, delim);
-        }
-        // assert(idx == count - 1);
-        *(result + idx) = 0;
+    // Estraggo il primo pattern
+    char * token = strtok(string, "\n");
+    if(!token){
+        printf("Errore, non trovato nessun pattern");
+        exit(0);
     }
 
-    return result;
+    splittata[0] = (char *) malloc(strlen(token)*sizeof(char));
+    strcpy(splittata[0], token);
+    countPatt = 1;
+
+    // loop fino all'ultimo token
+    while( token != NULL ) {
+        token = strtok(NULL, "\n");
+        if(token != NULL){
+            splittata = realloc(splittata, (countPatt+1)*sizeof(char*));
+            if(!splittata){
+                printf("Errore: spazio di memoria insufficiente per i pattern");
+                exit(0);
+            }
+            splittata[countPatt] = (char *) malloc(strlen(token)*sizeof(char));
+            if(!splittata[countPatt-1]){
+                printf("Errore: spazio di memoria insufficiente per i pattern");
+                exit(0);
+            }
+            strcpy(splittata[countPatt], token);
+            countPatt++;
+        }
+    }
+
+    *(numberPat) = countPatt;
+    return splittata;
 }
 
 // ALGORITMO di Knuth-Morris-Pratt che invece di stampare l'indice della posizione ritorna quante volte ha trovato quel pattern
