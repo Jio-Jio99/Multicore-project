@@ -54,9 +54,9 @@ int main(int argc, char* args[]){
 
     //Idea: suddividere i vari pattern da dare ai processi a seconda del my_rank del processo finché i pattern non sono finiti 
     //uncio For per tutti i pattern  
-    for(int i = 0; i < numberPat-1; i += comm_sz){
+    for(int i = 0; i < numberPat; i += comm_sz){
         volte=0;
-        if(i+my_rank>=numberPat-1 || !listaPat[i+my_rank]){
+        if(i+my_rank>=numberPat || !listaPat[i+my_rank]){
             continue;
         }
         KMPSearchInt(listaPat[i+my_rank], txt, &volte);
