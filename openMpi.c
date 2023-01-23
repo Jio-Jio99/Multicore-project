@@ -42,7 +42,7 @@ int main(int argc, char* args[]){
 
     //Del file patt splitto sugli '\n' per poter successivamente ciclare sulle stringhe da verificare
     int numberPat = 0; //Mi salvo quanti pattern ha trovato nel file così da poter avere una costante nel for
-    char** listaPat = StrSplit(pat, '\n', &numberPat);
+    char** listaPat = StrSplit(pat, &numberPat);
 
     // Idea: ciclare sui pattern mandando in parallelo il for, quindi suddividere i pattern da cercare tra i vari processi
     //Misurazione per il tempo
@@ -64,6 +64,7 @@ int main(int argc, char* args[]){
             }
     }
     end = omp_get_wtime();
+    
     //stampa finale del tempo messo
     printf("\nTime: %f\n", end - start);
     return 0;

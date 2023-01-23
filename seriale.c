@@ -34,7 +34,7 @@ int main(int argc, char* args[]) {
     }
 
     // Del file path splitto sugli '\n' per poter successivamente ciclare sulle stringhe da verificare
-    char** listaPat = StrSplit(pat, '\n', NULL);
+    char** listaPat = StrSplit(pat, NULL);
 
     // Funzionamento del processo seriale, per ogni pattern avvio la funzione di ricerca
     //Calcolo dei tempi

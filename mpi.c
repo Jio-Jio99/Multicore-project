@@ -35,7 +35,7 @@ int main(int argc, char* args[]){
 
     //Del file patt splitto sugli '\n' per poter successivamente ciclare sulle stringhe da verificare
     int numberPat = 0; //Mi salvo quanti pattern ha trovato nel file così da poter avere una costante nel for
-    char** listaPat = StrSplit(pat, '\n', &numberPat);
+    char** listaPat = StrSplit(pat, &numberPat);
 
     //Inizio programma con MPI
 
