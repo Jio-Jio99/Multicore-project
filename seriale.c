@@ -34,28 +34,26 @@ int main(int argc, char* args[]) {
     }
 
     // Del file path splitto sugli '\n' per poter successivamente ciclare sulle stringhe da verificare
-    char** listaPat = StrSplit(pat, NULL);
+    int numberPat;
+    char** listaPat = StrSplit(pat, &numberPat);
 
     // Funzionamento del processo seriale, per ogni pattern avvio la funzione di ricerca
+    
     //Calcolo dei tempi
     clock_t start, end;
     start = clock();
+    
     //Funzione seriale
-    serialeFunction(txt, listaPat);
+    int volte;
+    //Ciclo su tutti i pattern dati finchè l'array non è vuoto
+    for(int i=0; i < numberPat; i++){
+        volte = 0;
+        printf("Trovata la parola \"%s\"", listaPat[i]);
+        KMPSearchInt(listaPat[i], txt, &volte); //Algoritmo che calcola le ricorrenze della parola data
+        printf(" %d volte\n", volte);
+    }
+    
     end = clock();
     printf("\nTime: %f\n", ((double)(end - start))/CLOCKS_PER_SEC);
     return 0;
-}
-
-void serialeFunction(char *testo, char** pattern){
-    int volte;
-    //Ciclo su tutti i pattern dati finchè l'array non è vuoto
-    for(int i=0; *(pattern + i); i++){
-        volte = 0;
-        printf("Trovata la parola \"%s\"", *(pattern+i));
-        KMPSearchInt(pattern[i], testo, &volte); //Algoritmo che calcola le ricorrenze della parola data
-        printf(" %d volte\n", volte);
-    }
-
-    return;
 }
