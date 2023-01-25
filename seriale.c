@@ -37,7 +37,7 @@ int main(int argc, char* args[]) {
     int numberPat;
     char** listaPat = StrSplit(pat, &numberPat);
 
-    // Funzionamento del processo seriale, per ogni pattern avvio la funzione di ricerca
+    // Funzionamento del processo seriale, per ogni pattern avvio la funzione di ricerca iterativamente
     
     //Calcolo dei tempi
     clock_t start, end;

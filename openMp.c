@@ -55,7 +55,6 @@ int main(int argc, char* args[]){
             //For dei pattern che va da 0 a numberPat -1 
             for (int i = 0; i < numberPat; i++){
                 if (!listaPat[i]){
-                    i = numberPat;
                     continue;//Controllo in più per verificare se non si va in una parte di memoria vuota, altrimenti continua con il ciclo per poi uscire
                 }
                 volte = 0; 
