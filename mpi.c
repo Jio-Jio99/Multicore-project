@@ -41,6 +41,8 @@ int main(int argc, char* args[]){
 
     //Creazione dei processi
     MPI_Init(NULL, NULL);
+
+    //Prendo il tempo iniziale per ogni processo
     double start = MPI_Wtime();
 
     //Variabili private
@@ -53,15 +55,16 @@ int main(int argc, char* args[]){
     double end;
 
     //Idea: suddividere i vari pattern da dare ai processi a seconda del my_rank del processo finché i pattern non sono finiti 
-    //uncio For per tutti i pattern  
     for(int i = 0; i < numberPat; i += comm_sz){
         volte=0;
+        //Controllo in caso la lista non sia divisibile per i processi avviati, per evitare che si vada fuori array
         if(i+my_rank>=numberPat || !listaPat[i+my_rank]){
-            continue;
+            break;
         }
         KMPSearchInt(listaPat[i+my_rank], txt, &volte);
         printf("Ricercato \"%s\" dal processo %d di %d: %d ricorrenze trovate\n", listaPat[i+my_rank], my_rank+1, comm_sz, volte);
     }
+    //Tempo finale
     end = MPI_Wtime();
 
     //tempo messo dal processo

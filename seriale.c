@@ -45,14 +45,16 @@ int main(int argc, char* args[]) {
     
     //Funzione seriale
     int volte;
-    //Ciclo su tutti i pattern dati finchè l'array non è vuoto
+
+    //Ciclo su tutti i pattern dati
     for(int i=0; i < numberPat; i++){
         volte = 0;
-        printf("Trovata la parola \"%s\"", listaPat[i]);
+        //Algoritmo di ricerca
         KMPSearchInt(listaPat[i], txt, &volte); //Algoritmo che calcola le ricorrenze della parola data
-        printf(" %d volte\n", volte);
+        printf("Trovata la parola \"%s\" %d volte\n", listaPat[i], volte);
     }
     
+    //Tempo impiegato
     end = clock();
     printf("\nTime: %f\n", ((double)(end - start))/CLOCKS_PER_SEC);
     return 0;
