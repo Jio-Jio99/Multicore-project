@@ -1,0 +1,11 @@
+//OpenMP
+gcc -g -Wall -fopenmp openMp.c -o pragma.out
+./pragma.out alice_in_wonderland.txt patt-1000.txt 2 > outputOpen.txt
+
+//MPI 
+mpicc  -g  -Wall  -o  mpi.out  mpi.c
+mpiexec  -n 2 mpi.out alice_in_wonderland.txt patt-1000.txt > outputMpi.txt
+
+//Seriale
+gcc -Wall seriale.c -o seriale.out
+./seriale.out alice_in_wonderland.txt patt-1000.txt > outputSeriale.txt
