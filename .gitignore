@@ -1,6 +1,5 @@
 
 *.exe
 *.out
-output*.txt
 .vscode/c_cpp_properties.json
 .vscode/launch.json
