@@ -1,14 +1,14 @@
 //Seriale
 gcc -Wall seriale.c -o seriale.out
 ./seriale.out alice_in_wonderland.txt patt-1000.txt > outputSeriale.txt
-./seriale.out alice_in_wonderland.txt patt-3000.txt > ./altriOutput/outputSeriale3000.txt
+./seriale.out alice_in_wonderland.txt patt-100.txt > ./test-100parole/outputSeriale100.txt
 
 //OpenMP
 gcc -g -Wall -fopenmp openMp.c -o pragma.out
 ./pragma.out alice_in_wonderland.txt patt-1000.txt 2 > outputOpen.txt
-./pragma.out alice_in_wonderland.txt patt-3000.txt 2 > ./altriOutput/outputOpen3000.txt
+./pragma.out alice_in_wonderland.txt patt-100.txt 2 > ./test-100parole/outputOpen.txt
 
 //MPI 
 mpicc  -g  -Wall  -o  mpi.out  mpi.c
 mpiexec  -n 2 mpi.out alice_in_wonderland.txt patt-1000.txt > outputMpi.txt
-mpiexec  -n 2 mpi.out alice_in_wonderland.txt patt-3000.txt > ./altriOutput/outputMPI3000.txt
+mpiexec  -n 2 mpi.out alice_in_wonderland.txt patt-100.txt > ./test-100parole/outputMpi.txt
