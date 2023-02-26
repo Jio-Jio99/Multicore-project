@@ -16,8 +16,6 @@ con quelli ottenuti da una versione single-thread), valutare le prestazioni degl
 in termini di Speed-up ed efficienza al variare del numero di thread e delle dimensioni del problema
 (numero stringhe di S o numero di pacchetti di T).
 
-Il progetto è dimensionato per essere realizzato da un gruppo composto da due studenti.
-
 La consegna del progetto (almeno una settimana prima dell’orale) consiste in:
 (a) tutti i sorgenti (opportunamente commentati) necessari per il funzionamento;
 (b) Una relazione contenente:
@@ -27,9 +25,5 @@ opportunamente motivate.
 - I risultati in termini di prestazioni opportunamente commentati;
 Il giorno dell’orale è necessario preparare una presentazione powerpoint ed una demo del progetto.
 
-      TODO LIST:
-  - Scelta algoritmo: Knuth-Morris-Pratt: http://www.dacrema.com/Informatica/Algoritmo_Knuth_Morris.htm (FATTO)
-  - Realizzazione con il seriale: https://www.sanfoundry.com/c-program-implement-knuth-morris-pratt-algorithm-string-matching/ (FATTO)
-  - Realizzazione con MPI;
-  - Realizzazione con OpenMPI (slide 13-16) (FATTO)
-  - Fixare la funzione SpltString che con l'assertion non funziona su testi grandi
+## TODO LIST:
+* Il programma in MPI è da finire, poiché funziona solo su una macchina. (Da aggiungere le funzioni di invio dei dati)
