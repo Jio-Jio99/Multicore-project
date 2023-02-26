@@ -1,8 +1,7 @@
 # Multicore-project
 Programming in C for system embeded and multicore
-
-                                                PROGETTO 1
-                          Implementazione di algoritmi paralleli per string matching
+## PROGETTO 1
+### Implementazione di algoritmi paralleli per string matching
 
 Dato un insieme di stringhe S ed uno stream di pacchetti di dati (pacchetti contenenti traffico di rete
 tipo TCP/UDP) T controllare se all’interno dei pacchetti è presente una delle stringhe di S. Utilizzare
